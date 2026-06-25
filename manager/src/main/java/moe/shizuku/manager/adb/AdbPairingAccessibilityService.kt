@@ -32,11 +32,8 @@ class AdbPairingAccessibilityService : AccessibilityService() {
     override fun onServiceConnected() {
         super.onServiceConnected()
         
-        if (!(EnvironmentUtils.isTelevision() && EnvironmentUtils.isTlsSupported())) {
-            Toast.makeText(this, getString(R.string.toast_accessibility_tv_only), Toast.LENGTH_SHORT).show()
-            disableSelf()
-            return
-        }
+        // Make the pairing accessibility service available on all devices.
+        // Previous behavior limited this to TVs with TLS support; that restriction is removed.
 
         val intent = Intent(this, MainActivity::class.java).apply {
             addFlags(
